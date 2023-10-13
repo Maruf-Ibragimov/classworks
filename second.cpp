@@ -124,8 +124,109 @@ int calculateAverage(const vector<Student> &students){
 }
 
 int findHighestGrade(const vector<Student> &students) {
-    int highest = INT_LEAST16_MIN;
+    int highest = INT16_MIN;
     for (const Student &s : students) {
-        if (s.grade > highest)
+        if (s.grade > highest) {
+            highest = s.grade;
+        }
+    }
+    return highest;
+}
+
+int findLowestGrade(const vector<Student> &students){
+    int lowest = INT16_MAX;
+    for (const Student &s : students){
+        if (s.grade < lowest) {
+            lowest = s.grade;
+        }
+    }
+    return lowest;
+}
+
+void deleteStudent(vector<Student> &students, const string &name) {
+    for (auto it = students.begin(); it != students.end(); ++it) {
+        if (it->name == name) {
+            students.erase(it);
+            cout << "Student '" << name << "' has been deleted." << endl;
+            return;
+        }
+    }
+    cout << "Student '" << name << "' not found." << endl;
+}
+
+void updateStudent(vector<Student> &students) {
+    string nameToUpdate;
+    cout << "Enter the name of the student to update: ";
+    cin >> nameToUpdate;
+
+    for (Student &student : students) {
+        if (student.name == nameToUpdate) {
+            int updateChoice;
+            cout << "What would you like to update?\n";
+            cout << "1. Update Name\n";
+            cout << "2. Update Grade\n";
+            cout << "Enter your choice: ";
+            cin >> updateChoice;
+
+            if (updateChoice == 1) {
+                cout << "Enter the new name: ";
+                cin >> student.name;
+                cout << "Name updated successfully." << endl;
+            } else if (updateChoice == 2) {
+                cout << "Enter the new grade: ";
+                cin >> student.grade;
+                cout << "Grade updated successfully." << endl;
+            } else {
+                cout << "Invalid choice." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Student '" << nameToUpdate << "' not found." << endl;
+}
+
+void searchStudents(const vector<Student> &students){
+    int searchChoice;
+    cout << "Search Students by: \n";
+    cout << "1. Name\n";
+    cout << "2. Grade\n";
+    cout << "Enter your choice: ";
+    cin >> searchChoice;
+
+    if (searchChoice == 1) {
+        string nameToSearch;
+        cout << "Enter the name of the student: ";
+        cin >> nameToSearch;
+
+        bool found = false;
+        for (const Student & student : students) {
+            if (student.name == nameToSearch) {
+                cout << "Student found: \n";
+                cout << "Name: " << student.name << "\nGrade: " << student.grade << endl;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            cout << "Student with name '" << nameToSearch << "' not found." << endl;
+        }
+    } else if (searchChoice == 2) {
+        int gradeToSearch;
+        cout << "Enter the grade: ";
+        cin >> gradeToSearch;
+
+        bool found = false;
+        for (const Student &student : students) {
+            if (student.grade == gradeToSearch) {
+                cout << "Student found: \n";
+                cout << "Name: " << student.name << "\nGrade: " << student.grade << endl;
+                found = true;
+            }
+        }
+        if (!found) {
+            cout << "No student with grade " << gradeToSearch << " found." << endl;
+        }
+    }else {
+        cout << "Invalid choice." << endl;
     }
 }

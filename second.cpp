@@ -35,7 +35,7 @@ int main() {
         cout << "6. Delete Student \n";
         cout << "7. Update Student \n";
         cout << "8. Search Students \n";
-        cout << "3. Exit \n";
+        cout << "9. Exit \n";
         cout << "Enter your choice: ";
         cin >> choice;
 

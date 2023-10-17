@@ -1,0 +1,4 @@
+Title;Author;ISBN;Year
+Effective C++;Scott Meyers;9780321334879;2005
+The C++ Programming Language;Bjarne Stroustrup;9780321563842;2013
+C++ Primer;Stanley B. Lippman;9780321714114;2012

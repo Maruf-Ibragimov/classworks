@@ -1,8 +1,24 @@
-#include "../headers/common.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
+struct Book {
+    string title;
+    string author;
+    string isbn;
+    int year;
+};
+
+void addBook();
+void removeBook();
+void searchBook();
+void listBooks();
+
 vector<Book> books;
+
 int main() {
     int choice;
 
@@ -42,4 +58,57 @@ int main() {
     } while(choice != 5);
 
     return 0;
+}
+
+void addBook() {
+    Book newBook;
+
+    cout << "\nEnter book title: ";
+    cin.ignore();
+    getline(cin, newBook.title);
+
+    cout << "Enter author: ";
+    getline(cin, newBook.author);
+
+    cout << "Enter ISBN: ";
+    cin >> newBook.isbn;
+
+    cout << "Enter publication year: ";
+    cin >> newBook.year;
+
+    books.push_back(newBook);
+
+    cout << "Book added successfully!\n";
+}
+
+void removeBook() {
+    string isbn;
+    cout << "\nEnter ISBN of book to remove: ";
+    cin >> isbn;
+
+    books.erase(remove_if(books.begin(), books.end(),
+                               [&isbn](const Book &b) { return b.isbn == isbn; }),
+                books.end());
+
+    cout << "Book removed successfully (if it was present).\n";
+}
+
+void searchBook() {
+    string searchTerm;
+    cout << "\nEnter title | author | ISBN to search: ";
+    cin.ignore();
+    getline(cin, searchTerm);
+
+    for (const auto &book : books) {
+        if (book.title == searchTerm || book.author == searchTerm || book.isbn == searchTerm) {
+            cout << "\nFound: " << book.title << " | " << book.author << " | " << book.isbn << " | " << book.year << "\n";
+        }
+    }
+}
+
+void listBooks() {
+    cout << "\nList of Books:\n";
+    for (const auto &book : books) {
+        cout << book.title << "| " << book.author << "| " << book.isbn << "| " << book.year << "\n";
+    }
 }

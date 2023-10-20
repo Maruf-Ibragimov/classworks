@@ -32,6 +32,7 @@ bool isPalindrome(const std::vector<int> &v) {
 }
 
 int main() {
+    // Here is the reverseVector() function
     std::vector<int> original = {1, 2, 3, 4, 5};
     std::vector<int> reversed = reverseVector(original);
 
@@ -47,6 +48,8 @@ int main() {
     }
     std::cout << std::endl;
 
+
+    // Here is I am using removeOdd() function
     std::vector<int> numbers = {1, 2, 3, 4, 5, 6, 7};
     removeOdd(numbers);
 
@@ -56,6 +59,8 @@ int main() {
     }
     std::cout << std::endl;
 
+
+    // Here I am using isPalindrome() function
     std::vector<int> palindrome = {1, 2, 3, 2, 1};
     std::vector<int> notPalindrome = {1, 2, 3, 4, 5};
 

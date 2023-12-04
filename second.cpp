@@ -124,7 +124,7 @@ int calculateAverage(const vector<Student> &students){
 }
 
 int findHighestGrade(const vector<Student> &students) {
-    int highest = INT16_MIN;
+    int highest = INT_MIN;
     for (const Student &s : students) {
         if (s.grade > highest) {
             highest = s.grade;
@@ -134,7 +134,7 @@ int findHighestGrade(const vector<Student> &students) {
 }
 
 int findLowestGrade(const vector<Student> &students){
-    int lowest = INT16_MAX;
+    int lowest = INT_MAX;
     for (const Student &s : students){
         if (s.grade < lowest) {
             lowest = s.grade;

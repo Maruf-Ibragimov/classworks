@@ -7,6 +7,7 @@
 using namespace std;
 
 class Car {
+
     std::string make;
     std::string model;
     std::string plateNumber;
@@ -31,6 +32,9 @@ public:
     void setYear(int year);
     void setPrice(double price);
     void setIsAvailable(bool isAvailable);
+    void setPlateNumber(std::string plateNumber);
+
+    bool operator==(const Car& other) const;
 
 
 };

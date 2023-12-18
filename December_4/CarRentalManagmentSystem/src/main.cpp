@@ -2,19 +2,35 @@
 #include <chrono> // is for date and time managment
 #include <ctime>
 
+
 #include <CarRentalSystem.h>
 
 
 using namespace std;
 
 
-bool getUserPrompt( string prompt, string* input){
-    cout<< "Enter: "<<prompt<<endl;
+bool getUserPromptString(string prompt, string* input) {
+    cout << "Enter " << prompt << ": ";
+    cin >> *input;
+    return true;
+}
+
+bool getUserPromtInt(string prompt , int *input){
+    cout<<"Enter "<<prompt<<": ";
     cin>>*input;
     return true;
 }
 
+bool getUserPromtDouble(string prompt , double *input){
+    cout<<"Enter "<<prompt<<": ";
+    cin>>*input;
+    return true;
+}
+
+
+
 void mainPrompt( int* choice){
+    cout<<"==========Welcome to Fenix Car Rental Company============="<<"\n";
     cout<<"1. Add a car"<<endl;
     cout<<"2. Add a customer"<<endl;
     cout<<"3. Rent a car"<<endl;
@@ -23,16 +39,19 @@ void mainPrompt( int* choice){
     cout<<"6. Display all available cars"<<endl;
     cout<<"7. Display all rented cars"<<endl;
     cout<<"8. Display all customers"<<endl;
-    cout<<"9. Display all rentals"<<endl;
-    cout<<"10. Exit"<<endl;
+    cout<<"9. Search a car by its plate number."<<endl;
+    cout<<"10.Editing car's details."<<endl;
+    cout<<"11.Exit"<<endl;
+    cout<<"============================================================="<<"\n";
     cin>>*choice;
 }
 
 
 
 int main() {
-   
-    CarRentalSystem carRentalSystem("Ahmadjon Boy car rental system");    
+    
+    
+    CarRentalSystem carRentalSystem("Fenix Car Rental Company");   
 
     int choice;
 
@@ -46,34 +65,218 @@ int main() {
         case 1:
             {
             string make, model, plateNumber;
+            int year;
+            double price;
             
-            getUserPrompt("make", &make);
-            getUserPrompt("model", &model);
-            getUserPrompt("plate number", &plateNumber);
+            getUserPromptString("Company", &make);
+            getUserPromptString("Model", &model);
+            getUserPromptString("Plate Number",&plateNumber);
+            getUserPromtInt("Year",&year);
+            getUserPromtDouble("Price",&price);
 
-           
 
-            // carRentalSystem.addCar(make, model, year, price, isAvailable, plateNumber);
-
+            carRentalSystem.addCar(make,model,year,price,true,plateNumber);
             carRentalSystem.displayAllCars();
-            cout<<"DISPLAYED"<<endl;
-
-            cin.ignore();
-            
+            cout<<endl;
+            cout<<"New car has been added to the system successefully.\n";
+            cout<<endl;
             mainPrompt(pChoice);
+            break;
+
+            }
+        case 2:
+        {
+            string name, email, licence;
+            int phone, age;
+
+            getUserPromptString("name",&name);
+            getUserPromtInt("phone number",&phone);
+            getUserPromtInt("age",&age);
+            getUserPromptString("email",&email);
+            getUserPromptString("ID number",&licence);
+
+            carRentalSystem.addCustomer(name,phone,age,email,licence);
+            carRentalSystem.displayAllCustomers();
+            cout<<endl;
+            cout<<"New customer has been added to the system successefully.\n";
+            cout<<endl;
+            mainPrompt(pChoice);
+            break;
         
+        }
+        case 3:
+        {
+            string make, model, plateNumber;
+            int year;
+            double price;
+
+            string dr;
+           
+           getUserPromptString("driver licence number", &dr);
+            
+            
+            getUserPromptString("Plate Number",&plateNumber);
+            getUserPromtDouble("Price",&price);
+
+            Car carToRent(make,model,year,price,true,plateNumber);
+          
+           carRentalSystem.rentCar(carToRent, dr);
+         
+          mainPrompt(pChoice);
+          break;
+        }
+        case 4:
+        {
+         string plateNumber;
+         getUserPromptString("Car's plate number that needs to be returned",&plateNumber);
+
+         Car carToReturn = carRentalSystem.searchByPlateNumber(plateNumber);
+         if (carToReturn.getPlateNumber() == plateNumber) {
+         carRentalSystem.returningCar(carToReturn);
+        
+        } else {
+        cout << "Car was not found or it was not rented." << endl;
+        }
+         mainPrompt(pChoice);
+        break;
+        }
+
+        
+        case 5:
+        {   
+            cout<<endl;
+            cout<<"All the cars on the system.";
+            cout<<endl;
+            carRentalSystem.displayAllCars();
+            
+            cin.ignore();
+            mainPrompt(pChoice);
+            break;
+        }
+        case 6:
+        {  
+           cout<<endl;
+           cout<<" Currently, All Avaliable Cars.";
+            cout<<endl;
+
+           carRentalSystem.displayAllAvailableCars();
+           cin.ignore();
+           mainPrompt(pChoice);
+           break; 
+            
+        }
+        case 7:
+        {
+            cout<<endl;
+            cout<<"All rented cars List.";
+            cout<<endl;
+            carRentalSystem.displayAllRentedCars();
+            cin.ignore();
+            mainPrompt(pChoice);
+            break;
+        }
+
+        case 8:
+        {
+            cout<<endl;
+            cout<<"All customer that system has.";
+            cout<<endl;
+            carRentalSystem.displayAllCustomers();
+            cin.ignore();
+            mainPrompt(pChoice);
+            break;
+        }
+        case 9:
+        {
+            
+             string plate;
+            getUserPromptString("plate number",&plate);
+            Car searchedCar = carRentalSystem.searchByPlateNumber(plate);
+             if (searchedCar.getPlateNumber() == plate) {
+              
+              cout << "Company Name: " << searchedCar.getMake() << "\n";
+              cout << "Model of a car: " << searchedCar.getModel() << "\n";
+              cout << "Plate number: " << searchedCar.getPlateNumber() << "\n";
+              cout << "Year of car: " << searchedCar.getYear() << "\n";
+              cout << "Price of a car: $" << searchedCar.getPrice() << "\n";
+              } else {
+              cout << "Car not found.\n";
+             }
+             cout<<endl;
+             cout << "Here is the car that you have been searching:\n";
+             cin.ignore();
+            mainPrompt(pChoice);
+            break; 
+            }
+           
+          
+         
+        
+        case 10:
+        {
+
+         int option;
+         cout<<endl;
+         cout<<"=======Here is the list to update or edit.======"<<endl;
+         cout<<"1.Update car's price."<<endl;
+         cout<<"2.Update car's model."<<endl;
+         cout<<"3.Update car's avaliablity."<<endl;
+         cout<<"4.Back to Main menu."<<endl;
+         cout<<"================================================"<<endl;
+         
+         cout<<"Enter your choice: ";
+         cin>>option;
+        
+        
+
+            switch (option)
+            {
+            case 1:
+            {
+            string plateNum;
+            double price;
+            getUserPromptString("the plate number of the car to update a prrice",&plateNum);
+            getUserPromtDouble("the new price",&price);
+            
+            carRentalSystem.updateCarPrice(plateNum,price);
+            carRentalSystem.displayAllCars();
+
+            cout<<endl;
+            cout<<"Car with new price.\n";
+            cout<<endl;
+            
             break;
             }
-        default:
+            case 4:
+            {
+             string plate;
+            bool avaliable= false;
+            getUserPromptString("the plate number of the car",&plate);
+            
+            carRentalSystem.updateCarAvailability(plate,avaliable);
+            carRentalSystem.displayAllCars();
+            cout<<endl;
+            cout<<"Now it is avaliable.";
+            cout<<endl;
             break;
+            }
+            
+            default:
+                break;
+            }
+            cin.ignore();
+            mainPrompt(pChoice);
+            break;
+        }
+        
+        
         }
 
 
 
 
-    } while (choice != 10);
+    } while (choice != 11);
     
-
 
 
 
@@ -91,31 +294,3 @@ int main() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-//  // Get the current time as a std::chrono::system_clock object
-//     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-
-//     // Convert to a time_t object
-//     std::time_t now_c = std::chrono::system_clock::to_time_t(now - std::chrono::hours(24));
-//     cout<<now_c<<endl; // th
-
-//     // Convert to a tm struct for breaking down into year/month/day etc.
-//     std::tm* now_tm = std::localtime(&now_c);
-
-//     std::cout << "Yesterday's Year: " << (now_tm->tm_year + 1900) << '\n';
-//     std::cout << "Yesterday's Month: " << (now_tm->tm_mon + 1) << '\n';
-//     std::cout << "Yesterday's Day: " << now_tm->tm_mday << '\n';
-
-//     // Time 
-//     std::cout << "Yesterday's Hour: " << now_tm->tm_hour << '\n';
-//     std::cout << "Yesterday's Minutes: " << now_tm->tm_min << '\n';
-//     std::cout << "Yesterday's Seconds: " << now_tm->tm_sec << '\n';

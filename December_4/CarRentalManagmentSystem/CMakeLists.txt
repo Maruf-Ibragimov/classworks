@@ -19,6 +19,5 @@ include_directories(includes)
 file(GLOB SOURCES "src/*.cpp")
 #above line: Gathers all source files from the src directory.
 
-add_executable(CarRentalManagmentSystem ${SOURCES}
-        ../../second.cpp)
+add_executable(CarRentalManagmentSystem ${SOURCES})
 # above the line: Creates an executable named LibraryManagementSystem from the specified source files.

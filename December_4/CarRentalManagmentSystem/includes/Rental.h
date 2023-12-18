@@ -40,6 +40,8 @@ public:
     void setRentalDate(std::string rentalDate);
     void setReturnDate(std::string returnDate);
     void setIsReturned(bool isReturned);
+
+    
 };
 
 

@@ -3,7 +3,11 @@
 
 
 
+
 #include <string>
+#include <vector>
+
+
 
 
 using namespace std; 
@@ -11,22 +15,32 @@ using namespace std;
 class Customer { 
 
     string name; 
-    string phone;
+    int phone;
+    int age;
     string email;
+    string licenceNumber;
 
     public:
-    Customer(string n, string p, string e);
+    Customer(string n, int p, int a, string e,string l);
 
 
     string getName() const;
-    string getPhone() const;
+    int getPhone() const;
+    int getAge() const;
     string getEmail() const;
+    string getLicenceNumber()const;
 
     void setName(string name);
-    void setPhone(string phone);
+    void setPhone(int phone);
     void setEmail(string email);
+    void setLicenceNumber(string licenceNumber);
+    void setAge(int age);
 
+    void slam();
+    
+    
 
+   
 };
 
 

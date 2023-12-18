@@ -5,11 +5,7 @@
 #include <Car.h>
 #include <Customer.h>
 #include <Rental.h>
-
 #include <vector>
-
-
-
 #include <string>
 
 using namespace std; 
@@ -28,32 +24,44 @@ class CarRentalSystem{
 
 
     bool addCar( string make, string model, int year, double price, bool isAvailable, string plateNumber );
-
-     // Search the cars with plate number
-    Car* searchByPlateNumber(string plateNumber);
-
-    //Update the car with plate number
-    bool updateCarPrice(string plateNumber, double price); 
-
+ 
+    Car searchByPlateNumber(string plateNumber);
+    bool updateCarPrice(string plateNumber, double price);
     bool updateCarAvailability(string plateNumber, bool isAvailable);
+    bool updateCarModel(string plateNumber, string model);
 
-
+    void deleteCar(string plateNumber);
+    
     void displayAllCars() const;
 
-
-
-
-
-
-    bool addCustomer( string name, string phone, string email );
-
-
-
-
-
-    string getName() const;
     
 
+    bool addCustomer( string name, int  phone, int age, string email, string licence);
+    bool updateCustomerPhone(string driver, int number);
+    bool updateCustomerEmail(string driver, string email);
+    bool updateCustomerAge(string driver, int age);
+
+    void displayAllCustomers() const;
+
+ 
+   
+
+     
+
+  
+
+    void rentCar(Car & car, const string drlicence);
+    
+    
+    void returningCar(const Car &car);
+    void displayAllRentedCars();
+
+    void displayAllAvailableCars();
+
+    void deleteCustomer(string driver);
+    
+    
+    
 };
 
 
